@@ -27,33 +27,27 @@ To get a local copy up and running follow these simple example steps.
 
 Instal gems with:
 
-```
-bundle install
-```
+- `bundle install`
+
 
 Setup database with:
-
-```
-   rails db:create
-   rails db:migrate
-```
+ - `rails db:create`
+ - `rails db:migrate`
 
 
 ### Usage
 
 Start server with:
 
-```
-    rails server
-```
+- `rails s`
+
 
 Open `http://localhost:3000/` in your browser.
 
 ### Run tests
 
-```
-    rspec --format documentation
-```
+- `rspec`
+
 
 
 
