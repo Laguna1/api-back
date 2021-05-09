@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Trackings API", type: :request do
+RSpec.describe 'Trackings API', type: :request do
   let!(:user) { create(:user) }
   let!(:activity) { create(:activity) }
   let!(:trackings) { create_list(:tracking, 10, activity_id: activity.id) }
@@ -51,7 +51,10 @@ RSpec.describe "Trackings API", type: :request do
   end
 
   describe 'POST /users/:user_id/activities/:activity_id/trackings' do
-    let(:valid_attributes) { { tracking: { date: '2021-05-10', pulse: '75', duration: '30', distance: '1000', calories: '120', rate: 'lorem', activity_id: activity_id } } }
+    let(:valid_attributes) do
+      { tracking: { date: '2021-05-10', pulse: '75', duration: '30', distance: '1000', calories: '120', rate: 'lorem',
+                    activity_id: activity_id } }
+    end
 
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/activities/#{activity_id}/trackings", params: valid_attributes }
