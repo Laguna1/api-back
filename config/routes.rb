@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
    
-  get 'static_pages/home'
+  root 'static_pages#home'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#method_logged_in?'

@@ -23,6 +23,11 @@ RSpec.describe 'User API', type: :request do
     before { get "/users/#{user_id}" }
 
     context 'when the record exists' do
+      it 'returns user' do
+        expect(json).not_to be_empty
+        expect(json['user']['id']).to eq(user_id)
+      end
+      
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
