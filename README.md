@@ -5,13 +5,19 @@ This is a REST API for managing database resources, in this case there are 3 tab
 To create, view and edit activities and their tracked parameters of this User, "password_digest" and "cookies" are used.
 This rails api deployed on Heroku and assign to work with the react mobile app, where will bee the user interface.
 
-
-### Full 'api-back' API documentation 
+### 'api-back' API documentation
+I have added a new documentary for the API as the nice-to-have feature for my Final Capstone project.
+This documentation is available here:  
 [Publish Documentation / POSTMAN](https://documenter.getpostman.com/view/13821409/TzRSgnE8#f2e32b87-f733-4bc0-a600-213056730823)
 
 ### Live Demo
 
-[Live Demo](https://final-api-backend.herokuapp.com/)
+[Live Demo](https://final-api-backend.herokuapp.com/) it only accessible for the [app-front](https://app-front.netlify.app/) Frontend
+
+- ![User info JSON](./assets/images/user.png)
+- ![Activity info JSON](./assets/images/activity.png)
+- ![Tracking info JSON](./assets/images/user.png)
+
 
 ### Prerequisites
 
