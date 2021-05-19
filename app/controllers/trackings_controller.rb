@@ -1,6 +1,6 @@
 class TrackingsController < ApplicationController
   before_action :find_activity
-  before_action :find_tracking, only: %i[create index show update destroy]
+  before_action :find_tracking, only: %i[index show update destroy]
 
   def index
     render json: @activity.trackings

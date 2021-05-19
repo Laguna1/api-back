@@ -57,15 +57,15 @@ RSpec.describe 'Activities', type: :request do
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/activities", params: valid_attributes }
 
-      it 'returns status code 200' do
+      it 'returns status code 201' do
         expect(response).to have_http_status(200)
       end
 
       context 'when an invalid request' do
         before { post "/users/#{user_id}/activities", params: { activity: { name: '' } } }
 
-        it 'returns status code 400' do
-          expect(response).to have_http_status(400)
+        it 'returns status code 404' do
+          expect(response).to have_http_status(404)
         end
 
         it 'returns a failure message' do

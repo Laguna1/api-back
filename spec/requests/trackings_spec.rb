@@ -59,16 +59,16 @@ RSpec.describe 'Trackings API', type: :request do
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/activities/#{activity_id}/trackings", params: valid_attributes }
 
-      it 'returns status code 200' do
-        expect(response).to have_http_status(200)
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
       end
     end
 
     context 'when an invalid request' do
       before { post "/users/#{user_id}/activities/#{activity_id}/trackings", params: { tracking: { temperature: 38 } } }
 
-      it 'returns status code 400' do
-        expect(response).to have_http_status(400)
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
       end
 
       it 'returns a unable to create activity message' do

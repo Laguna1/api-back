@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :find_user
-  before_action :find_activity, only: %i[create show update destroy]
+  before_action :find_activity, only: %i[show update destroy]
 
   def index
     render json: @user.activities
@@ -14,10 +14,10 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
 
     if @activity.save
-      render json: @activity, status: 201
+      render json: @activity
     else
 
-      render json: { error: 'Unable to create activity' }, status: 422
+      render json: { error: 'Unable to create activity' }, status: 404
     end
   end
 
