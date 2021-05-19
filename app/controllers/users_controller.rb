@@ -32,12 +32,12 @@ class UsersController < ApplicationController
     if @user.save
       login!
       render json: {
-        status: :created,
+        status: 201,
         user: @user
       }
     else
       render json: {
-        status: 422,
+        status: 401,
         errors: @user.errors.full_messages
       }
     end

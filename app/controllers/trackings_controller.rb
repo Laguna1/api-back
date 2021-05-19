@@ -1,6 +1,6 @@
 class TrackingsController < ApplicationController
   before_action :find_activity
-  before_action :find_tracking, only: %i[index show update destroy]
+  before_action :find_tracking, only: %i[create index show update destroy]
 
   def index
     render json: @activity.trackings
@@ -14,10 +14,10 @@ class TrackingsController < ApplicationController
     @tracking = Tracking.new(tracking_params)
 
     if @tracking.save
-      render json: @tracking
+      render json: @tracking, status: 201
     else
 
-      render json: { error: 'Unable to create Date' }, status: 400
+      render json: { error: 'Unable to create Date' }, status: 422
     end
   end
 
@@ -26,7 +26,7 @@ class TrackingsController < ApplicationController
       @tracking.update(tracking_params)
       render json: { message: 'Date succesfully updated' }, status: 200
     else
-      render json: { error: 'Unable to update Date' }, status: 400
+      render json: { error: 'Unable to update Date' }, status: 422
     end
   end
 
@@ -36,7 +36,7 @@ class TrackingsController < ApplicationController
       render json: { message: 'Date succesfully deleted' }, status: 200
     else
 
-      render json: { error: 'Unable to delete Date' }, status: 400
+      render json: { error: 'Unable to delete Date' }, status: 422
     end
   end
 
