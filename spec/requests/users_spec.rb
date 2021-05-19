@@ -7,7 +7,7 @@ RSpec.describe 'User API', type: :request do
   describe 'GET /users' do
     before { get '/users' }
 
-    it 'returns user' do
+    it 'returns users' do
       expect(response).to have_http_status(:success)
       expect do
         JSON.parse(response.body)
