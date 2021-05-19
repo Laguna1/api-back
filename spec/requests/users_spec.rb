@@ -12,6 +12,8 @@ RSpec.describe 'User API', type: :request do
       expect do
         JSON.parse(response.body)
       end.to_not raise_error
+      expect(json).not_to be_empty
+      expect(json['users'].size).to eq(10)
     end
 
     it 'returns status code 200' do
