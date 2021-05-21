@@ -1,5 +1,6 @@
-class TrackingSerializer < ActiveModel::Serializer
-  attributes :id, :date, :distance, :duration, :pulse, :calories, :rate
-
+class TrackingSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :id, :date, :distance, :duratuin, :pulse, :rate
+  
   belongs_to :activity
 end

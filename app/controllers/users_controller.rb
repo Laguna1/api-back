@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @users = User.all
     if @users
       render json: {
-        users: @users
+        users: UserSerializer.new(@users)
       }
     else
       render json: {
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user
       render json: {
-        user: @user
+        user: UserSerializer.new(@user)
       }
     else
       render json: {
