@@ -3,11 +3,11 @@ class TrackingsController < ApplicationController
   before_action :find_tracking, only: %i[index show update destroy]
 
   def index
-    render json: @activity.trackings
+    render json: TrackingSerializer.new(@activity.trackings)
   end
 
   def show
-    render json: @tracking
+    render json: TrackingSerializer.new(@tracking)
   end
 
   def create
