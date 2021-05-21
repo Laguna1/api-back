@@ -1,6 +1,6 @@
 class TrackingSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id, :date, :distance, :duratuin, :pulse, :rate
-  
-  belongs_to :activity
+  attributes :id, :date, :distance, :duration, :pulse, :rate, :activity_id
+
+  belongs_to :activity, serializer: ActivitySerializer
 end

@@ -3,11 +3,11 @@ class ActivitiesController < ApplicationController
   before_action :find_activity, only: %i[show update destroy]
 
   def index
-    render json: @user.activities
+    render json: ActivitySerializer.new(@user.activities)
   end
 
   def show
-    render json: @activity
+    render json: ActivitySerializer.new(@activity)
   end
 
   def create
