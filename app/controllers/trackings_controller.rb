@@ -43,7 +43,8 @@ class TrackingsController < ApplicationController
   private
 
   def tracking_params
-    params.require(:tracking).permit(:date, :pulse, :duration, :distance, :calories, :rate, :activity_id, :id)
+    params.require(:tracking).permit(:date, :distance)
+    # params.require(:tracking).permit(:date, :pulse, :duration, :distance, :calories, :rate, :activity_id, :id)
   end
 
   def find_tracking
