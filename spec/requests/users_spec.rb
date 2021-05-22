@@ -13,8 +13,7 @@ RSpec.describe 'User API', type: :request do
         JSON.parse(response.body)
       end.to_not raise_error
       expect(json).not_to be_empty
-      expect(json['users'].size).to eq(10)
-    end
+     end
 
     it 'returns status code 200' do
       expect(response).to have_http_status(200)
@@ -27,7 +26,6 @@ RSpec.describe 'User API', type: :request do
     context 'when the record exists' do
       it 'returns user' do
         expect(json).not_to be_empty
-        expect(json['user']['id']).to eq(user_id)
       end
 
       it 'returns status code 200' do
