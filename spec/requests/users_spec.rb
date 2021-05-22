@@ -13,7 +13,7 @@ RSpec.describe 'User API', type: :request do
         JSON.parse(response.body)
       end.to_not raise_error
       expect(json).not_to be_empty
-     end
+    end
 
     it 'returns status code 200' do
       expect(response).to have_http_status(200)
