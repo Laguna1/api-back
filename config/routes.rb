@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
    
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
-  resources :users,  only: %i[create show index] do
-    resources :activities do
+  post 'sign_up', to: 'registrations#create'
+  resources :activities do
       resources :trackings
     end
   end
-end
