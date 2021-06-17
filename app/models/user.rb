@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :activities
   has_many :trackings, through: :activities
+  has_one :access_token, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :password, presence: true, length: { minimum: 6 }
