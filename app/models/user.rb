@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :activities
+  has_many :activities, dependent: :destroy
   has_many :trackings, through: :activities
   has_one :access_token, dependent: :destroy
 
