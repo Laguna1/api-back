@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Registrations', type: :request do
+RSpec.describe RegistrationsController, type: :controller do
   describe 'GET /create' do
     subject { post :create, params: params }
     context 'when invalid data provided' do
