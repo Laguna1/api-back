@@ -56,8 +56,6 @@ Open `http://localhost:3000/` in your browser.
 - `rspec`
 
 
-
-
 ### Author
 
 👤 **Oksana Petrova**
@@ -82,3 +80,11 @@ You can access all the design info - color, typography, layouts - at this link:
 
 ### 📝 License
 This project is [MIT](https://github.com/Laguna1/api-back/LICENSE) licensed.
+curl --location --request POST 'localhost:3000/sessions?username=OksanaNew&password=11111111' \
+--data-raw '{
+    "user":
+    {
+        "username": "OksanaNew",
+        "password": "11111111"
+    }
+}'
