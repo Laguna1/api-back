@@ -1,57 +1,56 @@
 class ActivitiesController < ApplicationController
-  before_action :find_user
-  before_action :find_activity, only: %i[show update destroy]
+  before_action :set_activity, only: %i[show update destroy]
+  before_action :authorize!
+  
 
   def index
-    render json: ActivitySerializer.new(@user.activities)
+    @activities = current_user.activities.all
+    render json: serializer.new(@activities)
   end
 
   def show
-    render json: ActivitySerializer.new(@activity)
+    render json: serializer.new(@activity)
   end
 
   def create
-    @activity = Activity.new(activity_params)
+    @activity = current_user.activities.build(activity_params)
 
     if @activity.save
-      render json: @activity
+      render json: serializer.new(@activity), status: :created, location: @activity
     else
 
-      render json: { error: 'Unable to create activity' }, status: 404
+      render json: @activity.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @activity
-      @activity.update(activity_params)
-      render json: { message: 'activity succesfully updated' }, status: 200
+    if @activity.update(activity_params)
+
+      render json: serializer.new(@activity)
     else
 
-      render json: { error: 'Unable to update activity' }, status: 422
+      render json: @activity.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @activity
-      @activity.destroy
-      render json: { message: 'activity succesfully deleted' }, status: 200
-    else
-
-      render json: { error: 'Unable to delete activity' }, status: 422
-    end
+    @activity.destroy
   end
 
   private
 
+  def set_activity
+    @activity = current_user.activities.find(params[:id])
+  end
+
   def activity_params
-    params.require(:activity).permit(:name, :place, :intensity, :user_id, :id)
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:item) || ApplicationController::Parameters.new
   end
 
-  def find_user
-    @user = User.find(params[:user_id])
-  end
-
-  def find_activity
-    @activity = Activity.find(params[:id])
+  def serializer
+    ActivitySerializer
   end
 end

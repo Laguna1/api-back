@@ -1,57 +1,57 @@
 class TrackingsController < ApplicationController
-  before_action :find_activity
-  before_action :find_tracking, only: %i[index show update destroy]
+  before_action :set_tracking, only: %i[show update destroy]
+  before_action :authorize!
 
   def index
-    render json: TrackingSerializer.new(@activity.trackings)
+    @trackings = activity.trackings.all
+
+    render json: serializer.new(@trackings)
   end
 
   def show
-    render json: TrackingSerializer.new(@tracking)
+    render json: serializer.new(@tracking)
   end
 
   def create
-    @tracking = Tracking.new(tracking_params)
+    @tracking = activity.trackings.build(tracking_params)
 
     if @tracking.save
-      render json: @tracking, status: 201
+      render json: serializer.new(@tracking), status: :created
     else
-
-      render json: { error: 'Unable to create Date' }, status: 422
+      render json: @tracking.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @tracking
-      @tracking.update(tracking_params)
-      render json: { message: 'Date succesfully updated' }, status: 200
+    if @tracking.update(tracking_params)
+      render json: serializer.new(@tracking)
     else
-      render json: { error: 'Unable to update Date' }, status: 422
+      render json: @tracking.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @tracking
-      @tracking.destroy
-      render json: { message: 'Date succesfully deleted' }, status: 200
-    else
-
-      render json: { error: 'Unable to delete Date' }, status: 422
-    end
+    @tracking.destroy
   end
 
   private
 
+  def set_tracking
+    @tracking = activity.trackings.find(params[:id])
+  end
+
   def tracking_params
-    params.require(:tracking).permit(:date, :distance)
-    # params.require(:tracking).permit(:date, :pulse, :duration, :distance, :calories, :rate, :activity_id, :id)
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:name, :distance, :duration, :repeats) || ApplicationController::Parameters.new
   end
 
-  def find_tracking
-    @tracking = Tracking.find(params[:id])
+  def serializer
+    TrackingSerializer
   end
 
-  def find_activity
-    @activity = Activity.find(params[:activity_id])
+  def activity
+    current_user.activities.find(params[:activity_id])
   end
 end
