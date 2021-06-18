@@ -12,7 +12,7 @@ RSpec.describe Activity, type: :model do
       expect(another_activity).to be_valid
     end
 
-    it 'has an invalid item' do
+    it 'has a valid item' do
       activity = build :activity, user: user, item: ''
       expect(activity).not_to be_valid
       expect(activity.errors[:item]).to include("can't be blank")

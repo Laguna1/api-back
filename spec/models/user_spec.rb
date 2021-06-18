@@ -20,14 +20,5 @@ RSpec.describe User, type: :model do
       other_user.username = 'newusername'
       expect(other_user).to be_valid
     end
-
-    it {
-      should validate_length_of(:username)
-        .is_at_least(3)
-    }
-    it {
-      should validate_length_of(:password)
-        .is_at_least(6)
-    }
   end
 end

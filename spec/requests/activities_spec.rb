@@ -6,8 +6,8 @@ RSpec.describe 'Activities', type: :request do
   let(:user_id) { user.id }
   let(:id) { activities.first.id }
 
-  describe 'GET users/:user_id/activities' do
-    before { get "/users/#{user_id}/activities" }
+  describe 'GET /activities' do
+    before { get '/activities' }
 
     context 'when user exists' do
       it 'returns status code 200' do
@@ -28,8 +28,8 @@ RSpec.describe 'Activities', type: :request do
     end
   end
 
-  describe 'GET /users/:user_id/activities/:id' do
-    before { get "/users/#{user_id}/activities/#{id}" }
+  describe 'GET /activities/:id' do
+    before { get "/activities/#{id}" }
 
     context 'when an activity exists' do
       it 'returns status code 200' do
@@ -49,20 +49,20 @@ RSpec.describe 'Activities', type: :request do
     end
   end
 
-  describe 'POST post "/users/:user_id/activities' do
+  describe 'POST post "/activities' do
     let(:valid_attributes) do
-      { activity: { name: 'Swimming', place: 'Aquarena-Pool', intensity: 'middle', user_id: user_id } }
+      { activity: { item: '2021-10-10' } }
     end
 
     context 'when request attributes are valid' do
-      before { post "/users/#{user_id}/activities", params: valid_attributes }
+      before { post '/activities', params: valid_attributes }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(200)
       end
 
       context 'when an invalid request' do
-        before { post "/users/#{user_id}/activities", params: { activity: { name: '' } } }
+        before { post '/activities', params: { activity: { item: '' } } }
 
         it 'returns status code 404' do
           expect(response).to have_http_status(404)
@@ -75,10 +75,10 @@ RSpec.describe 'Activities', type: :request do
     end
   end
 
-  describe 'PUT /users/:user_id/activities/:id' do
-    let(:valid_attributes) { { activity: { name: 'MyActivity' } } }
+  describe 'PUT /activities/:id' do
+    let(:valid_attributes) { { activity: { item: '2021-12-12' } } }
 
-    before { put "/users/#{user_id}/activities/#{id}", params: valid_attributes }
+    before { put "/activities/#{id}", params: valid_attributes }
 
     context 'when Activities exists' do
       it 'returns status code 200' do
@@ -87,7 +87,7 @@ RSpec.describe 'Activities', type: :request do
 
       it 'updates the Activity' do
         updated_activity = Activity.find(id)
-        expect(updated_activity.name).to match(/MyActivity/)
+        expect(updated_activity.item).to match(/2021-12-12/)
       end
     end
 
@@ -104,8 +104,8 @@ RSpec.describe 'Activities', type: :request do
     end
   end
 
-  describe 'DELETE /users/:user_id/activities/:id' do
-    before { delete "/users/#{user_id}/activities/#{id}" }
+  describe 'DELETE /activities/:id' do
+    before { delete "/activities/#{id}" }
     it 'returns status code 200' do
       expect(response).to have_http_status(200)
     end

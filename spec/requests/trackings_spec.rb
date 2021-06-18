@@ -77,10 +77,10 @@ RSpec.describe 'Trackings API', type: :request do
     end
   end
 
-  describe 'PUT /users/:user_id/activities/:activity_id/trackings/:id' do
+  describe 'PUT /activities/:activity_id/trackings/:id' do
     let(:valid_attributes) { { tracking: { date: '2021-05-10' } } }
 
-    before { put "/users/#{user_id}/activities/#{activity_id}/trackings/#{id}", params: valid_attributes }
+    before { put "/activities/#{activity_id}/trackings/#{id}", params: valid_attributes }
 
     context 'when tracking exists' do
       it 'returns status code 200' do
