@@ -106,8 +106,8 @@ RSpec.describe 'Trackings API', type: :request do
     end
   end
 
-  describe 'DELETE /users/:user_id/activities/:activity_id/trackings/:id' do
-    before { delete "/users/#{user_id}/activities/#{activity_id}/trackings/#{id}" }
+  describe 'DELETE /activities/:activity_id/trackings/:id' do
+    before { delete "/activities/#{activity_id}/trackings/#{id}" }
 
     it 'returns status code 200' do
       expect(response).to have_http_status(200)
