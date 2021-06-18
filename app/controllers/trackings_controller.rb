@@ -34,6 +34,17 @@ class TrackingsController < ApplicationController
     @tracking.destroy
   end
 
+  def progress
+    @trackings = Tracking.joins(
+      "INNER JOIN activities
+        ON activities.id = trackings.activity_id
+        AND activities.user_id = #{current_user.id}
+        AND trackings.name = '#{params[:name]}'"
+    )
+
+    render json: serializer.new(@trackings)
+  end
+
   private
 
   def set_tracking

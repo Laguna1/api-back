@@ -1,7 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: %i[show update destroy]
   before_action :authorize!
-  
 
   def index
     @activities = current_user.activities.all
