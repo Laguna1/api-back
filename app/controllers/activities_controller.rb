@@ -12,9 +12,11 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = current_user.activities.build(activity_params)
-
-    if @activity.save
+    activities = current_user.activities
+    @activity = activities.build(activity_params)
+    if activities.exists?(item: activity_params[:item])
+      render json: { item: ['has already been taken'] }, status: :unprocessable_entity
+    elsif @activity.save
       render json: serializer.new(@activity), status: :created, location: @activity
     else
 

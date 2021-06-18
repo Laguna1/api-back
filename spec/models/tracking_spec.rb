@@ -11,7 +11,7 @@ RSpec.describe Tracking, type: :model do
     end
 
     it 'has an invalid name' do
-      tracking = build :track, activity: activity, name: ''
+      tracking = build :tracking, activity: activity, name: ''
       expect(tracking).not_to be_valid
       expect(tracking.errors[:name]).to include("can't be blank")
     end
