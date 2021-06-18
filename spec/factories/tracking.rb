@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :tracking do
-    date { Faker::Date.between(from: '2021-05-08', to: '2022-05-08') }
-    distance { Faker::Number.number(digits: 4) }
-    rate { Faker::Lorem.word }
+    name { 'Name' }
+    distance { 100 }
+    duration { 30 }
+    repeats { 2 }
     activity
   end
 end

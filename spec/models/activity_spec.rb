@@ -11,10 +11,10 @@ RSpec.describe Activity, type: :model do
       another_activity = build :activity, user: user
       expect(another_activity).to be_valid
     end
-    
+
     it { should validate_presence_of(:item) }
   end
-  
+
   describe 'Associations' do
     it { should belong_to(:user) }
   end

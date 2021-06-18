@@ -1,7 +1,8 @@
 class Tracking < ApplicationRecord
   belongs_to :activity
 
-  validates :date, presence: true
-  # validates :rate, presence: true
+  validates :name, presence: true
   validates :distance, presence: true
+  validates :duration, presence: true
+  validates :repeats, presence: true
 end
