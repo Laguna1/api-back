@@ -1,7 +1,4 @@
 class ActivitySerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :id, :name, :place, :intensity, :user_id
-
-  belongs_to :user
-  has_many :trackings
+  include JSONAPI::Serializer
+  attributes :item
 end
