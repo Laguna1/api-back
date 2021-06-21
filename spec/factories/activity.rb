@@ -1,8 +1,5 @@
 FactoryBot.define do
   factory :activity do
-    name { Faker::Lorem.word }
-    place { Faker::Lorem.word }
-    intensity { Faker::Lorem.word }
-    user
+    sequence(:item) { |n| n.days.ago }
   end
 end

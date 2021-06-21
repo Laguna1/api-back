@@ -10,45 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_190724) do
+ActiveRecord::Schema.define(version: 2021_06_21_194553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "access_tokens", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "token", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_access_tokens_on_user_id"
-  end
-
   create_table "activities", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.date "item"
-    t.index ["user_id"], name: "index_activities_on_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "trackings", force: :cascade do |t|
-    t.bigint "activity_id", null: false
-    t.integer "duration"
-    t.integer "distance"
-    t.integer "repeats"
+  create_table "tracks", force: :cascade do |t|
     t.string "name"
+    t.integer "distance"
+    t.integer "duration"
+    t.integer "repeat"
+    t.bigint "activity_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_trackings_on_activity_id"
+    t.index ["activity_id"], name: "index_tracks_on_activity_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "encrypted_password"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  add_foreign_key "access_tokens", "users"
-  add_foreign_key "trackings", "activities"
+  add_foreign_key "tracks", "activities"
 end

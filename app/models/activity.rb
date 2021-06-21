@@ -1,8 +1,5 @@
 class Activity < ApplicationRecord
-  belongs_to :user
-  accepts_nested_attributes_for :user
-  has_many :trackings
+    has_many :trackings, dependent: :destroy
 
-  validates :name, presence: true
-  validates :place, presence: true
+    validates :item, presence: true
 end

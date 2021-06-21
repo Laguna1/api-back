@@ -1,57 +1,52 @@
 class ActivitiesController < ApplicationController
-  before_action :find_user
-  before_action :find_activity, only: %i[show update destroy]
+    before_action :set_activity, only: %i[show update destroy]
 
-  def index
-    render json: ActivitySerializer.new(@user.activities)
-  end
-
-  def show
-    render json: ActivitySerializer.new(@activity)
-  end
-
-  def create
-    @activity = Activity.new(activity_params)
-
-    if @activity.save
-      render json: @activity
-    else
-
-      render json: { error: 'Unable to create activity' }, status: 404
+    def index
+      @activities = activities.all
+  
+      render json: serializer.new(@activities)
     end
-  end
-
-  def update
-    if @activity
-      @activity.update(activity_params)
-      render json: { message: 'activity succesfully updated' }, status: 200
-    else
-
-      render json: { error: 'Unable to update activity' }, status: 422
+  
+    def show
+      render json: serializer.new(@activity)
     end
-  end
-
-  def destroy
-    if @activity
+  
+    def create
+      activities = current_user.activities
+  
+      @activity = activities.build(activity_params)
+  
+      if activities.exists?(day: activity_params[:day])
+        render json: { item: ['has already been taken'] }, status: :unprocessable_entity
+      elsif @activity.save
+        render json: serializer.new(@activity), status: :created, location: @activity
+      else
+        render json: @activity.errors, status: :unprocessable_entity
+      end
+    end
+  
+    def update
+      if @activity.update(activity_params)
+        render json: serializer.new(@activity)
+      else
+        render json: @activity.errors, status: :unprocessable_entity
+      end
+    end
+  
+    def destroy
       @activity.destroy
-      render json: { message: 'activity succesfully deleted' }, status: 200
-    else
-
-      render json: { error: 'Unable to delete activity' }, status: 422
     end
-  end
-
-  private
-
-  def activity_params
-    params.require(:activity).permit(:name, :place, :intensity, :user_id, :id)
-  end
-
-  def find_user
-    @user = User.find(params[:user_id])
-  end
-
-  def find_activity
-    @activity = Activity.find(params[:id])
-  end
+  
+    private
+  
+    def set_activity
+      @activity = activities.find(params[:id])
+    end
+  
+    def activity_params
+      params
+        .require(:data)
+        .require(:attributes)
+        .permit(:item) || ApplicationController::Parameters.new
+    end
 end
