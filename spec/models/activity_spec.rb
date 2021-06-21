@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
   describe 'Validations' do
-    
     it 'has a valid factory' do
       activity = build :activity
       expect(activity).to be_valid

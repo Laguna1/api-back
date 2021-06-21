@@ -3,51 +3,53 @@ class TracksController < ApplicationController
   before_action :find_track, only: %i[index show update destroy]
 
   def index
-    render json: track.new(@activity.tracks)
+    @tracks = activity.tracks.all
+
+    render json: serializer.new(@tracks)
   end
 
   def show
-    render json: track.new(@track)
+    render json: serializer.new(@track)
   end
 
   def create
-    @track = Track.new(track_params)
+    @track = activity.tracks.build(track_params)
 
     if @track.save
-      render json: @track, status: 201
+      render json: serializer.new(@track), status: :created
     else
 
-      render json: { error: 'Unable to create Date' }, status: 422
+      render json: @track.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @track
-      @track.update(track_params)
-      render json: { message: 'Date succesfully updated' }, status: 200
+    if @track.update(track_params)
+      render json: serializer.new(@track)
     else
-      render json: { error: 'Unable to update Date' }, status: 422
+      render json: @track.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @track
-      @track.destroy
-      render json: { message: 'Date succesfully deleted' }, status: 200
-    else
-
-      render json: { error: 'Unable to delete Date' }, status: 422
-    end
+    @track.destroy
   end
 
   private
 
-  def track_params
-    params.require(:track).permit(:name, :distance, :duration, :repeat)
+  def set_track
+    @track = activity.tracks.find(params[:id])
   end
 
-  def find_track
-    @track = Tracking.find(params[:id])
+  def track_params
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:name, :distance, :duration, :repeat) || ApplicationController::Parameters.new
+  end
+
+  def serializer
+    TrackingSerializer
   end
 
   def find_activity

@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-    has_many :trackings, dependent: :destroy
+  has_many :trackings, dependent: :destroy
 
-    validates :item, presence: true
+  validates :item, presence: true
 end

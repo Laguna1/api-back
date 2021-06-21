@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Track, type: :model do
   describe 'Validations' do
-    let(:activity) { create :activity}
+    let(:activity) { create :activity }
 
     it 'it has a valid factory' do
       track = build :track, activity: activity
@@ -37,5 +37,5 @@ RSpec.describe Track, type: :model do
     it { should validate_presence_of(:duration) }
     it { should validate_presence_of(:distance) }
     it { should validate_presence_of(:repeat) }
-end
+  end
 end
