@@ -1,9 +1,8 @@
 class TracksController < ApplicationController
-  before_action :find_activity
-  before_action :find_track, only: %i[index show update destroy]
+ before_action :set_track, only: %i[index show update destroy]
 
   def index
-    @tracks = activity.tracks.all
+    @tracks = activity.tracks
 
     render json: serializer.new(@tracks)
   end
@@ -49,10 +48,10 @@ class TracksController < ApplicationController
   end
 
   def serializer
-    TrackingSerializer
+    TrackSerializer
   end
 
-  def find_activity
-    @activity = Activity.find(params[:activity_id])
+  def activity
+    Activity.all.find(params[:activity_id])
   end
 end
