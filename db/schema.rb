@@ -10,41 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_08_164914) do
+ActiveRecord::Schema.define(version: 2021_06_22_204734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name"
-    t.string "place"
-    t.string "intensity"
+  create_table "access_tokens", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "token", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_activities_on_user_id"
+    t.index ["user_id"], name: "index_access_tokens_on_user_id"
   end
 
-  create_table "trackings", force: :cascade do |t|
-    t.bigint "activity_id", null: false
-    t.datetime "date"
-    t.integer "pulse"
-    t.integer "duration"
-    t.integer "distance"
-    t.integer "calories"
-    t.string "rate"
+  create_table "activs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "item", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_trackings_on_activity_id"
+    t.index ["user_id"], name: "index_activs_on_user_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.bigint "activ_id", null: false
+    t.string "name", null: false
+    t.integer "distance", null: false
+    t.integer "duration", null: false
+    t.integer "repeat", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activ_id"], name: "index_tracks_on_activ_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "password_digest"
+    t.string "encrypted_password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "activities", "users"
-  add_foreign_key "trackings", "activities"
+  add_foreign_key "access_tokens", "users"
+  add_foreign_key "activs", "users"
+  add_foreign_key "tracks", "activs"
 end

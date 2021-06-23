@@ -1,8 +1,22 @@
 class User < ApplicationRecord
-  has_secure_password
-  has_many :activities
-  has_many :trackings, through: :activities
+  include BCrypt
 
-  validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
-  validates :password, presence: true, length: { minimum: 6 }
+  has_one :access_token, dependent: :destroy
+  has_many :activs, dependent: :destroy
+
+  validates :username, presence: true, uniqueness: true
+  validates :password, presence: true
+
+  def password
+    @password ||= Password.new(encrypted_password) if encrypted_password.present?
+  end
+
+  def password=(new_password)
+    if new_password.blank?
+      @password = new_password
+    else
+      @password = Password.create(new_password)
+      self.encrypted_password = @password
+    end
+  end
 end

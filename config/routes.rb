@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-   
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
-  resources :users,  only: %i[create show index] do
-    resources :activities do
-      resources :trackings
-    end
+  resources :activs do
+    resources :tracks
   end
+  post 'login', to: 'access_tokens#create'
+  delete 'logout', to: 'access_tokens#destroy'
+  post 'sign_up', to: 'registrations#create'
+  get '/progress/:name', to: 'tracks#progress'
 end
