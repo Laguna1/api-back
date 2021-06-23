@@ -15,8 +15,9 @@ This documentation is available here:
 [Live Demo](https://final-api-backend.herokuapp.com/) it only accessible for the [app-front](https://app-front.netlify.app/) Frontend
 
 - ![User info JSON](./assets/images/user.png)
-- ![Activity info JSON](./assets/images/activities.png)
-- ![Tracking info JSON](./assets/images/track.png)
+- ![Access-Token info JSON](./assets/images/user-login.png)
+- ![Activ info JSON](./assets/images/activs.png)
+- ![Track info JSON](./assets/images/tracks.png)
 
 
 ### Prerequisites
