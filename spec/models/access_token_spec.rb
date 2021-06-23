@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AccessToken, type: :model do
-  describe 'new' do
+  describe 'New' do
     it 'should have a token present after initialize' do
       expect(AccessToken.new.token).to be_present
     end
@@ -10,5 +10,8 @@ RSpec.describe AccessToken, type: :model do
       user = create :user
       expect { user.create_access_token }.to change { AccessToken.count }.by(1)
     end
+  end
+  describe 'Associations' do
+    it { should belong_to(:user) }
   end
 end
