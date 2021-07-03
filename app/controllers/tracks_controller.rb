@@ -40,7 +40,7 @@ class TracksController < ApplicationController
         ON activs.id = tracks.activ_id
         AND activs.user_id = #{current_user.id}
         AND tracks.name = '#{params[:name]}'
-        ORDER BY activs.day ASC"
+        ORDER BY activs.item ASC"
     )
 
     render json: serializer.new(@tracks)
