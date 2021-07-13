@@ -7,10 +7,10 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://final-api-backend.herokuapp.com', 'http://localhost:3000'
+    origins 'https://final-api-backend.herokuapp.com'
 
     resource '*',
-      headers: "Access-Control-Allow-Origin: https://final-api-backend.herokuapp.com",
+      headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
   end
