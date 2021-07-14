@@ -1,9 +1,10 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
 ## Api-back
-This is a REST API for managing database resources, in this case there are 3 tables in the database - this project has Users, Activities(their actions,  like sports trainings) and Trainings (monitored parameters, such as date, duration, distance, pulse, rate, etc.) ).
-To create, view and edit activities and their tracked parameters of this User, "password_digest" and "cookies" are used.
-This rails api deployed on Heroku and assign to work with the react mobile app, where will bee the user interface.
+This is a REST API for managing database resources, in this case, there are 3 tables in the database - in this project, there are Users, Activs (a choice of dates for creating a track), and Tracks (tracked parameters such as duration, distance, repeаts of training exercises).
+For security in the API token-based authentication is used
+For the correct and structured display of JSON data, used the serializers.
+This rails API is deployed to Heroku and assigned to work with the React mobile app where the UI will be.
 
 ### 'api-back' API documentation
 I have added a new documentary for the API as the nice-to-have feature for my Final Capstone project.
