@@ -1,0 +1,67 @@
+require 'rails_helper'
+
+RSpec.describe RegistrationsController do
+  describe 'GET /create' do
+    subject { post :create, params: params }
+    context 'when invalid data provided' do
+      let(:params) do
+        {
+          data: {
+            attributes: {
+              username: nil,
+              password: nil
+            }
+          }
+        }
+      end
+      it 'should return unprocessable_entity status code' do
+        subject
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+      it 'should not create a user' do
+        subject
+        expect { subject }.not_to(change { User.count })
+      end
+      it 'should return an error message in the response body' do
+        subject
+        expect(json[:errors]).to include(
+          {
+            username: ["can't be blank"]
+          },
+          {
+            password: ["can't be blank"]
+          }
+        )
+      end
+    end
+    context 'when valid data provided' do
+      let(:params) do
+        {
+          data: {
+            attributes: {
+              username: 'testuser',
+              password: 'testpassword'
+            }
+          }
+        }
+      end
+
+      it 'should return 201 http status code ' do
+        subject
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'should create a user' do
+        expect(User.exists?(username: 'testuser')).to be_falsey
+        expect { subject }.to change { User.count }.by(1)
+        expect(User.exists?(username: 'testuser')).to be_truthy
+      end
+      it 'should return proper json' do
+        subject
+        expect(json_data[:attributes]).to include({
+                                                    username: 'testuser'
+                                                  })
+      end
+    end
+  end
+end
